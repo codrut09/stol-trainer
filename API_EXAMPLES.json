@@ -1,0 +1,256 @@
+{
+  "health_check": {
+    "endpoint": "GET /api/health",
+    "response": {
+      "status": 200,
+      "message": "Service is healthy",
+      "data": {
+        "service": "Fitness Trainer Backend",
+        "status": "UP",
+        "version": "1.0.0-MVP"
+      },
+      "timestamp": "2025-12-01T10:30:00"
+    }
+  },
+  "user_registration": {
+    "endpoint": "POST /api/users/register",
+    "request": {
+      "username": "john_doe",
+      "password": "password123",
+      "email": "john@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "role": "TRAINEE"
+    },
+    "response": {
+      "status": 201,
+      "message": "User created successfully",
+      "data": {
+        "id": 1,
+        "username": "john_doe",
+        "email": "john@example.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "role": "TRAINEE",
+        "active": true
+      },
+      "timestamp": "2025-12-01T10:30:00"
+    }
+  },
+  "get_user_by_id": {
+    "endpoint": "GET /api/users/1",
+    "response": {
+      "id": 1,
+      "username": "john_doe",
+      "email": "john@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "role": "TRAINEE",
+      "active": true
+    }
+  },
+  "get_users_by_role": {
+    "endpoint": "GET /api/users/role/trainer",
+    "response": [
+      {
+        "id": 2,
+        "username": "trainer_mike",
+        "email": "mike@example.com",
+        "firstName": "Mike",
+        "lastName": "Johnson",
+        "role": "TRAINER",
+        "active": true
+      }
+    ]
+  },
+  "create_exercise": {
+    "endpoint": "POST /api/exercises/user/1",
+    "request": {
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": 8,
+      "weight": 100,
+      "notes": "Heavy weight, good form",
+      "exerciseDate": "2025-12-01"
+    },
+    "response": {
+      "id": 1,
+      "userId": 1,
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": 8,
+      "weight": 100,
+      "notes": "Heavy weight, good form",
+      "exerciseDate": "2025-12-01"
+    }
+  },
+  "get_exercises_by_user": {
+    "endpoint": "GET /api/exercises/user/1",
+    "response": [
+      {
+        "id": 1,
+        "userId": 1,
+        "name": "Bench Press",
+        "sets": 4,
+        "reps": 8,
+        "weight": 100,
+        "notes": "Heavy weight, good form",
+        "exerciseDate": "2025-12-01"
+      },
+      {
+        "id": 2,
+        "userId": 1,
+        "name": "Squats",
+        "sets": 3,
+        "reps": 10,
+        "weight": 120,
+        "notes": "Great form",
+        "exerciseDate": "2025-12-01"
+      }
+    ]
+  },
+  "get_exercises_by_date": {
+    "endpoint": "GET /api/exercises/user/1/date?date=2025-12-01",
+    "response": [
+      {
+        "id": 1,
+        "userId": 1,
+        "name": "Bench Press",
+        "sets": 4,
+        "reps": 8,
+        "weight": 100,
+        "notes": "Heavy weight, good form",
+        "exerciseDate": "2025-12-01"
+      }
+    ]
+  },
+  "get_exercises_by_date_range": {
+    "endpoint": "GET /api/exercises/user/1/range?startDate=2025-12-01&endDate=2025-12-07",
+    "response": [
+      {
+        "id": 1,
+        "userId": 1,
+        "name": "Bench Press",
+        "sets": 4,
+        "reps": 8,
+        "weight": 100,
+        "notes": "Heavy weight, good form",
+        "exerciseDate": "2025-12-01"
+      },
+      {
+        "id": 2,
+        "userId": 1,
+        "name": "Squats",
+        "sets": 3,
+        "reps": 10,
+        "weight": 120,
+        "notes": "Great form",
+        "exerciseDate": "2025-12-02"
+      }
+    ]
+  },
+  "create_meal": {
+    "endpoint": "POST /api/meals/user/1",
+    "request": {
+      "name": "Grilled Chicken with Rice",
+      "calories": 650,
+      "protein": "45g",
+      "carbs": "60g",
+      "fats": "12g",
+      "notes": "High protein, balanced macros",
+      "mealDate": "2025-12-01"
+    },
+    "response": {
+      "id": 1,
+      "userId": 1,
+      "name": "Grilled Chicken with Rice",
+      "calories": 650,
+      "protein": "45g",
+      "carbs": "60g",
+      "fats": "12g",
+      "notes": "High protein, balanced macros",
+      "mealDate": "2025-12-01"
+    }
+  },
+  "get_meals_by_user": {
+    "endpoint": "GET /api/meals/user/1",
+    "response": [
+      {
+        "id": 1,
+        "userId": 1,
+        "name": "Grilled Chicken with Rice",
+        "calories": 650,
+        "protein": "45g",
+        "carbs": "60g",
+        "fats": "12g",
+        "notes": "High protein, balanced macros",
+        "mealDate": "2025-12-01"
+      },
+      {
+        "id": 2,
+        "userId": 1,
+        "name": "Salmon with Broccoli",
+        "calories": 720,
+        "protein": "50g",
+        "carbs": "40g",
+        "fats": "25g",
+        "notes": "Omega-3 rich",
+        "mealDate": "2025-12-01"
+      }
+    ]
+  },
+  "get_meals_by_date": {
+    "endpoint": "GET /api/meals/user/1/date?date=2025-12-01",
+    "response": [
+      {
+        "id": 1,
+        "userId": 1,
+        "name": "Grilled Chicken with Rice",
+        "calories": 650,
+        "protein": "45g",
+        "carbs": "60g",
+        "fats": "12g",
+        "notes": "High protein, balanced macros",
+        "mealDate": "2025-12-01"
+      }
+    ]
+  },
+  "update_exercise": {
+    "endpoint": "PUT /api/exercises/1",
+    "request": {
+      "name": "Bench Press",
+      "sets": 5,
+      "reps": 6,
+      "weight": 110,
+      "notes": "Increased weight",
+      "exerciseDate": "2025-12-01"
+    },
+    "response": {
+      "id": 1,
+      "userId": 1,
+      "name": "Bench Press",
+      "sets": 5,
+      "reps": 6,
+      "weight": 110,
+      "notes": "Increased weight",
+      "exerciseDate": "2025-12-01"
+    }
+  },
+  "delete_exercise": {
+    "endpoint": "DELETE /api/exercises/1",
+    "response": {
+      "status": 204,
+      "message": "Exercise deleted successfully"
+    }
+  },
+  "error_example": {
+    "endpoint": "POST /api/users/register (with duplicate username)",
+    "response": {
+      "status": 400,
+      "message": "Username already exists",
+      "data": null,
+      "timestamp": "2025-12-01T10:30:00"
+    }
+  }
+}
+
