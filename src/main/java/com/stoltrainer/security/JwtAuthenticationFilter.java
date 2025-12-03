@@ -14,8 +14,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Logger;
 
 @Component
@@ -25,24 +23,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
     private static final Logger logger = Logger.getLogger(JwtAuthenticationFilter.class.getName());
 
-    // Endpoint-urile care nu necesită autentificare
-    private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
-            "/api/health",
-            "/api/auth/login",
-            "/api/users/register",
-            "/h2-console"
-    );
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
-        // Verifică dacă request-ul e pentru un endpoint public
-        String requestPath = request.getRequestURI();
-        if (isPublicEndpoint(requestPath)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         try {
             String jwt = getJwtFromRequest(request);
@@ -54,7 +37,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
@@ -63,10 +45,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    private boolean isPublicEndpoint(String requestPath) {
-        return PUBLIC_ENDPOINTS.stream().anyMatch(requestPath::startsWith);
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
