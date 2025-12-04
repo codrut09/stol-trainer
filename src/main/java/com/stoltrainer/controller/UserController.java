@@ -46,17 +46,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
-        try {
-            UserDTO userDTO = userService.getUserById(id);
-            return ResponseEntity.ok(new ApiResponse("success", "User found", userDTO, System.currentTimeMillis()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse("error", e.getMessage(), null, System.currentTimeMillis()));
-        }
-    }
-
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         try {
@@ -107,6 +96,17 @@ public class UserController {
         try {
             userService.deleteUser(id);
             return ResponseEntity.ok(new ApiResponse("success", "User deleted successfully", null, System.currentTimeMillis()));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse("error", e.getMessage(), null, System.currentTimeMillis()));
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        try {
+            UserDTO userDTO = userService.getUserById(id);
+            return ResponseEntity.ok(new ApiResponse("success", "User found", userDTO, System.currentTimeMillis()));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ApiResponse("error", e.getMessage(), null, System.currentTimeMillis()));
