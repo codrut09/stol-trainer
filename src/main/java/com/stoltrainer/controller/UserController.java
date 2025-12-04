@@ -101,15 +101,4 @@ public class UserController {
                     .body(new ApiResponse("error", e.getMessage(), null, System.currentTimeMillis()));
         }
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
-        try {
-            UserDTO userDTO = userService.getUserById(id);
-            return ResponseEntity.ok(new ApiResponse("success", "User found", userDTO, System.currentTimeMillis()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse("error", e.getMessage(), null, System.currentTimeMillis()));
-        }
-    }
 }
